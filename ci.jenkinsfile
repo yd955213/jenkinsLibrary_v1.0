@@ -1,0 +1,43 @@
+#!groovy
+
+@Library('jenkinslibrary@master') _
+
+//func from shareibrary
+def build = new org.devops.build()
+def deploy = new org.devops.deploy()
+
+String buildType = "${env.buildType}"
+String buildShell = "${env.buildShell}"
+String deployHosts = "${env.deployHosts}"
+String srcUrl = "${env.srcUrl}"
+String branchName = "${env.branchName}"
+
+    stages{
+
+        stage("CheckOut"){
+            steps{
+                script{
+                   
+                    
+                    println("${branchName}")
+                
+                    tools.PrintMes("获取代码","green")
+                    checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]], 
+                                      doGenerateSubmoduleConfigurations: false, 
+                                      extensions: [], 
+                                      submoduleCfg: [], 
+                                      userRemoteConfigs: [[credentialsId: 'gitlab-admin-user', url: "${srcUrl}"]]])
+
+                }
+            }
+        }
+        stage("Build"){
+            steps{
+                script{
+                    build.Build(buildType,buildShell)
+                    deploy.SaltDeploy("${deployHosts}","test.ping")
+                    deploy.AnsibleDeploy("${deployHosts}","-m ping ")
+                }
+            }
+       }
+   }
