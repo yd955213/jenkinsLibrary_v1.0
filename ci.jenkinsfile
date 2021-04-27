@@ -12,6 +12,7 @@ String deployHosts = "${env.deployHosts}"
 String srcUrl = "${env.srcUrl}"
 String branchName = "${env.branchName}"
 
+pipelin{
     stages{
 
         stage("CheckOut"){
