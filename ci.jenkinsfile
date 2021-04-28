@@ -13,6 +13,11 @@ String buildShell = "${env.buildShell}"
 String branchName = "${env.branchName}"
 String srcUrl = "${env.gitURL}"
 
+if("${runOps}"=="githubPush"){
+	branchName = branch - "refs/heads/"
+}
+
+currentBuild.description = "${userName} 提交了分支 ${branchName} 触发了构建"
 
 //pipeline
 pipeline{
@@ -23,12 +28,10 @@ pipeline{
         stage("CheckOut"){
             steps{
                 script{
-			if("${runOps}"=="githubPush"){
-				branchName = branch - "refs/heads/"
-			}
-                    tools.printMsg("github地址：${srcUrl}","red")
-		    tools.printMsg("分支名称：${branchName}","green")
-                    tools.printMsg("获取代码","blue")
+			
+					tools.printMsg("github地址：${srcUrl}","red")
+					tools.printMsg("分支名称：${branchName}","green")
+					tools.printMsg("获取代码","blue")
 					checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]], extensions: [], userRemoteConfigs: [[credentialsId: 'b907f56d-56e1-4395-991d-5b0dab908551', url: "${srcUrl}"]]])
                 }
             }
