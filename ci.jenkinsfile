@@ -17,7 +17,7 @@ if("${runOps}"=="githubPush"){
 	branchName = branch - "refs/heads/"
 }
 
-currentBuild.description = "${userName} 提交了分支 ${branchName} 触发了构建"
+currentBuild.description = "${userName} 提交了分支 ${branchName}，标注信息为：${message}"
 
 //pipeline
 pipeline{
