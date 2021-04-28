@@ -12,23 +12,18 @@ String deployHosts = "${env.deployHosts}"
 String srcUrl = "${env.srcUrl}"
 String branchName = "${env.branchName}"
 
-pipelin{
+pipeline{
     stages{
-
         stage("CheckOut"){
             steps{
                 script{
-                   
-                    
                     println("${branchName}")
-                
                     tools.PrintMes("获取代码","green")
                     checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]], 
                                       doGenerateSubmoduleConfigurations: false, 
                                       extensions: [], 
                                       submoduleCfg: [], 
                                       userRemoteConfigs: [[credentialsId: 'gitlab-admin-user', url: "${srcUrl}"]]])
-
                 }
             }
         }
@@ -42,3 +37,4 @@ pipelin{
             }
        }
    }
+}
