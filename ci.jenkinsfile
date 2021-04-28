@@ -33,10 +33,11 @@ pipeline{
 		stage("Build"){
             steps{
                 script{
-				tools.PrintMes("执行打包","green")
-                build.Build(buildType,buildShell)
-				
-				tools.PrintMes("打包完成","green")
+					tools.PrintMes("执行打包","green")
+					build.Build(buildType,buildShell)
+					
+					tools.PrintMes("打包完成","green")
+				}
 			}
 		}
     }
