@@ -23,8 +23,8 @@ pipeline{
         stage("CheckOut"){
             steps{
                 script{
-                    tools.printMsg("${branchName}","green")
-                    tools.printMsg("获取代码","green")
+                    print("${branchName}")
+                    print("获取代码")
 					checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]], extensions: [], userRemoteConfigs: [[credentialsId: 'b907f56d-56e1-4395-991d-5b0dab908551', url: "${srcUrl}"]]])
                 }
             }
@@ -33,10 +33,10 @@ pipeline{
 		stage("Build"){
             steps{
                 script{
-					tools.printMsg("执行打包","green","green")
+					print("执行打包")
 					build.Build(buildType,buildShell)
 					
-					tools.printMsg("打包完成","green","green")
+					print("打包完成")
 				}
 			}
 		}
@@ -44,13 +44,13 @@ pipeline{
     post {
         always{
             script{
-                tools.printMsg("always","green")
+                print("always")
             }
         }
         
         success{
             script{
-                tools.printMsg("success","green")
+                print("success")
                 // if ("${runOpts}" == "GitlabPush"){
                 //     gitlab.ChangeCommitStatus(projectId,commitSha,"success")
                 // }
@@ -61,7 +61,7 @@ pipeline{
         }
         failure{
             script{
-                tools.printMsg("failure","red")
+                print("failure")
                 // if ("${runOpts}" == "GitlabPush"){
                 //     gitlab.ChangeCommitStatus(projectId,commitSha,"failed")
                 // }
@@ -71,7 +71,7 @@ pipeline{
         
         aborted{
             script{
-                tools.printMsg("aborted","blue")
+                print("aborted")
                 // if ("${runOpts}" == "GitlabPush"){
                 //     gitlab.ChangeCommitStatus(projectId,commitSha,"canceled")
                 // }
@@ -81,6 +81,4 @@ pipeline{
         }
     
     }
-    
-    
 }
