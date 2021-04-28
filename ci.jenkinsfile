@@ -9,7 +9,7 @@ def tools = new org.devops.tool()
 
 String buildType = "${env.buildType}"
 String buildShell = "${env.buildShell}"
-String deployHosts = "${env.deployHosts}"
+// String deployHosts = "${env.deployHosts}"
 String branchName = "${env.branchName}"
 String srcUrl = "${env.getUrl}"
 
@@ -25,7 +25,7 @@ pipeline{
                 script{
                     println("${branchName}")
                     tools.PrintMes("获取代码","green")
-					checkout([$class: 'GitSCM', branches: [[name: '${branchName}']], extensions: [], userRemoteConfigs: [[credentialsId: 'b907f56d-56e1-4395-991d-5b0dab908551', url: '${srcUrl}']]])
+			checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]], extensions: [], userRemoteConfigs: [[credentialsId: 'b907f56d-56e1-4395-991d-5b0dab908551', url: "${srcUrl}"]]])
                 }
             }
         }
