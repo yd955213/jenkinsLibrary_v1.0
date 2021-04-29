@@ -11,7 +11,7 @@ String buildType = "${env.buildType}"
 String buildShell = "${env.buildShell}"
 // String deployHosts = "${env.deployHosts}"
 String branchName = "${env.branchName}"
-String srcUrl = "${env.getUrl}"
+String srcUrl = "${env.gitURL}"
 
 
 //pipeline
