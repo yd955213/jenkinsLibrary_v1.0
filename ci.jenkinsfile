@@ -23,6 +23,9 @@ pipeline{
         stage("CheckOut"){
             steps{
                 script{
+			if("${runOps}"=="githubPush"){
+				branchName = branch - "refs/heads/"
+			}
                     tools.printMsg("github地址：${srcUrl}","red")
 		    tools.printMsg("分支名称：${branchName}","green")
                     tools.printMsg("获取代码","blue")
