@@ -36,7 +36,7 @@ pipeline{
 					print("执行打包")
 					build.Build(buildType,buildShell)
 					
-					print("打包完成")
+					tools.printMsg("打包完成","green")
 				}
 			}
 		}
