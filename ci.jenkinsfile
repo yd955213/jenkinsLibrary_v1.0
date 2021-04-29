@@ -7,6 +7,9 @@ def build = new org.devops.build()
 def deploy = new org.devops.deploy()
 def tools = new org.devops.tool()
 def toEmail = new org.devops.toEmail()
+def sonar = new org.devops.sonarqube()
+def sonarApi = new org.devops.sonarapi()
+
 
 String buildType = "${env.buildType}"
 String buildShell = "${env.buildShell}"
