@@ -23,9 +23,9 @@ pipeline{
         stage("CheckOut"){
             steps{
                 script{
-                    print("github地址：${srcUrl}")
-		    print("分支名称：${branchName}")
-                    print("获取代码")
+                    tools.printMsg("github地址：${srcUrl}","red")
+		    tools.printMsg("分支名称：${branchName}","green")
+                    tools.printMsg("获取代码","blue")
 					checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]], extensions: [], userRemoteConfigs: [[credentialsId: 'b907f56d-56e1-4395-991d-5b0dab908551', url: "${srcUrl}"]]])
                 }
             }
@@ -34,7 +34,7 @@ pipeline{
 		stage("Build"){
             steps{
                 script{
-					print("执行打包")
+					tools.printMsg("执行打包","green1")
 					build.Build(buildType,buildShell)
 					tools.printMsg("打包完成","green")
 				}
