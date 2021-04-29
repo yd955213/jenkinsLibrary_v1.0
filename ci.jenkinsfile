@@ -16,7 +16,7 @@ String srcUrl = "${env.getUrl}"
 
 //pipeline
 pipeline{
-    agent { node { label "build"}}
+   // agent { node { label "build"}}
         
     stages{
 
