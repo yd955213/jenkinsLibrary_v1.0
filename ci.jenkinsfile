@@ -14,7 +14,7 @@ String buildShell = "${env.buildShell}"
 String branchName = "${env.branchName}"
 String srcUrl = "${env.gitURL}"
 
-if("${runOps}"=="githubPush"){
+if("${runOpts}"=="githubPush"){
 	branchName = branch - "refs/heads/"
 }
 
