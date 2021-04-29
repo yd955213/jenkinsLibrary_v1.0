@@ -23,7 +23,8 @@ pipeline{
         stage("CheckOut"){
             steps{
                 script{
-                    print("${branchName}")
+                    print("github地址：${srcUrl}")
+		    print("分支名称：${branchName}")
                     print("获取代码")
 					checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]], extensions: [], userRemoteConfigs: [[credentialsId: 'b907f56d-56e1-4395-991d-5b0dab908551', url: "${srcUrl}"]]])
                 }
