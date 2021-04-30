@@ -55,16 +55,46 @@ pipeline{
 		stage("QA"){
             steps {
                 script{
-					tools.printMsg("代码扫描","green")
-					tools.printMsg("代码扫描路径：${JOB_NAME}","green")
+                    tools.PrintMes("搜索项目","green")
+                    result = sonarApi.SerarchProject("${JOB_NAME}")
+                    println(result)
+                    
+                    if (result == "false"){
+                        println("${JOB_NAME}---项目不存在,准备创建项目---> ${JOB_NAME}！")
+                        sonarApi.CreateProject("${JOB_NAME}")
+                    } else {
+                        println("${JOB_NAME}---项目已存在！")
+                    }
+                    
+                    tools.PrintMes("配置项目质量规则","green")
+                    qpName="${JOB_NAME}".split("-")[0]   //Sonar%20way
+                    sonarApi.ConfigQualityProfiles("${JOB_NAME}","java",qpName)
+                
+                    tools.PrintMes("配置质量阈","green")
+                    sonarApi.ConfigQualityGates("${JOB_NAME}",qpName)
+                
+                    tools.PrintMes("代码扫描","green")
                     sonar.SonarScan("test","${JOB_NAME}","${JOB_NAME}","src")
-					tools.printMsg("获取扫描结果","green")
-					result = sonarApi.GetProjectStatus("${JOB_NAME}")
-					print(result)
-					
-				}
-			}
-		}
+                    
+
+                    sleep 30
+                    tools.PrintMes("获取扫描结果","green")
+                    result = sonarApi.GetProjectStatus("${JOB_NAME}")
+                    
+                    
+                    println(result)
+                    if (result.toString() == "ERROR"){
+                        toemail.Email("代码质量阈错误！请及时修复！",userEmail)
+                        error " 代码质量阈错误！请及时修复！"
+                        
+                        
+                    } else {
+                        println(result)
+                    }
+
+                }
+           }
+       }
     }
     post {
         always{
