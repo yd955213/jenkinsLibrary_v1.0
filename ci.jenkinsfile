@@ -52,6 +52,7 @@ pipeline{
             steps {
                 script{
 					tools.printMsg("代码扫描","green")
+					tools.printMsg("代码扫描路径：${JOB_NAME}","green")
                     sonar.SonarScan("test","${JOB_NAME}","${JOB_NAME}","src")
 					tools.printMsg("获取扫描结果","green")
 					result = sonarApi.GetProjectStatus("${JOB_NAME}")
@@ -60,8 +61,6 @@ pipeline{
 				}
 			}
 		}
-		
-
     }
     post {
         always{
