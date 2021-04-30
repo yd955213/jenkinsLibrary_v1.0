@@ -68,10 +68,10 @@ pipeline{
                     }
                     
                     tools.printMsg("配置项目质量规则","green")
-                    sonarApi.ConfigQualityProfiles("${JOB_NAME}","java","FindBugs + FB-Contrib")
+                    sonarApi.ConfigQualityProfiles("${JOB_NAME}","java","java")
                 
                     tools.printMsg("配置质量阈","green")
-                    sonarApi.ConfigQualityGates("${JOB_NAME}","Sonar way")
+                    sonarApi.ConfigQualityGates("${JOB_NAME}","javaSonar")
                 
                     tools.printMsg("代码扫描","green")
                     sonar.SonarScan("test","${JOB_NAME}","${JOB_NAME}","src")
