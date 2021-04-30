@@ -39,20 +39,24 @@ pipeline{
                 }
             }
         }
-		stage("QA"){
-            steps {
-                script{
-					tools.printMsg("代码扫描","green")
-                    sonar.SonarScan("test","${JOB_NAME}","${JOB_NAME}","src")
-				}
-			}
-		}
 		stage("Build"){
             steps{
                 script{
 					tools.printMsg("执行打包","green1")
 					build.Build(buildType,buildShell)
 					tools.printMsg("打包完成","green")
+				}
+			}
+		}
+		stage("QA"){
+            steps {
+                script{
+					tools.printMsg("代码扫描","green")
+                    sonar.SonarScan("test","${JOB_NAME}","${JOB_NAME}","src")
+					tools.printMsg("获取扫描结果","green")
+					result = sonarApi.GetProjectStatus("${JOB_NAME}")
+					print(result)
+					
 				}
 			}
 		}
