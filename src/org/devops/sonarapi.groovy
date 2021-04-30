@@ -4,9 +4,10 @@ package org.devops
 //封装HTTP
 
 def HttpReq(reqType,reqUrl,reqBody){
-    def sonarServer = "http://192.168.1.200:30090/api"
+    def sonarServer = "http://134.175.149.69:9000/api"
    
-    result = httpRequest authentication: 'sonar-admin-user',
+   //7591b610-5637-43e6-9879-914d16376745 为jenkins中sonarqube的凭据
+    result = httpRequest authentication: '7591b610-5637-43e6-9879-914d16376745',
             httpMode: reqType, 
             contentType: "APPLICATION_JSON",
             consoleLogResponseBody: true,
