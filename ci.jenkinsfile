@@ -12,7 +12,12 @@ def sonarApi = new org.devops.sonarapi()
 
 // 防止手动触发时，未生成runOpts变量
 def runOpts
-
+def branch
+def userName
+def message
+def userEmail
+def before
+def after
 
 String buildType = "${env.buildType}"
 String buildShell = "${env.buildShell}"
