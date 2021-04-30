@@ -10,7 +10,7 @@ def SonarScan(sonarServer,projectName,projectDesc,projectPath,branchName){
     
     //withSonarQubeEnv("${servers[sonarServer]}"){
         def scannerHome = "/opt/sonarqube/sonar-scanner-4.6.0.2311-linux"
-        def sonarServer = "http://134.175.149.69:9000"
+        def sonarServer = "http://sonarqube:9000"
         def sonarDate = sh  returnStdout: true, script: 'date  +%Y%m%d%H%M%S'
         sonarDate = sonarDate - "\n"
     
