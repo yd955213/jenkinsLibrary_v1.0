@@ -55,7 +55,7 @@ pipeline{
 		stage("QA"){
             steps {
                 script{
-                    tools.PrintMes("搜索项目","green")
+                    tools.printMsg("搜索项目","green")
                     result = sonarApi.SerarchProject("${JOB_NAME}")
                     println(result)
                     
@@ -66,19 +66,19 @@ pipeline{
                         println("${JOB_NAME}---项目已存在！")
                     }
                     
-                    tools.PrintMes("配置项目质量规则","green")
+                    tools.printMsg("配置项目质量规则","green")
                     qpName="${JOB_NAME}".split("-")[0]   //Sonar%20way
                     sonarApi.ConfigQualityProfiles("${JOB_NAME}","java",qpName)
                 
-                    tools.PrintMes("配置质量阈","green")
+                    tools.printMsg("配置质量阈","green")
                     sonarApi.ConfigQualityGates("${JOB_NAME}",qpName)
                 
-                    tools.PrintMes("代码扫描","green")
+                    tools.printMsg("代码扫描","green")
                     sonar.SonarScan("test","${JOB_NAME}","${JOB_NAME}","src")
                     
 
                     sleep 30
-                    tools.PrintMes("获取扫描结果","green")
+                    tools.printMsg("获取扫描结果","green")
                     result = sonarApi.GetProjectStatus("${JOB_NAME}")
                     
                     
