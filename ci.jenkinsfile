@@ -55,6 +55,7 @@ pipeline{
 		stage("QA"){
             steps {
                 script{
+					
                     tools.printMsg("搜索项目","green")
                     result = sonarApi.SerarchProject("${JOB_NAME}")
                     println(result)
@@ -67,11 +68,10 @@ pipeline{
                     }
                     
                     tools.printMsg("配置项目质量规则","green")
-                    qpName="${JOB_NAME}".split("-")[0]   //Sonar%20way
-                    sonarApi.ConfigQualityProfiles("${JOB_NAME}","java",qpName)
+                    sonarApi.ConfigQualityProfiles("${JOB_NAME}","java","FindBugs + FB-Contrib")
                 
                     tools.printMsg("配置质量阈","green")
-                    sonarApi.ConfigQualityGates("${JOB_NAME}",qpName)
+                    sonarApi.ConfigQualityGates("${JOB_NAME}","Sonar way")
                 
                     tools.printMsg("代码扫描","green")
                     sonar.SonarScan("test","${JOB_NAME}","${JOB_NAME}","src")
