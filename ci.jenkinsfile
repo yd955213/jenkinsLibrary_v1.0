@@ -74,9 +74,8 @@ pipeline{
                     sonarApi.ConfigQualityGates("${JOB_NAME}","javaSonar")
                 
                     tools.printMsg("代码扫描","green")
-                    sonar.sonarScan1("sonarServer","${JOB_NAME}","${JOB_NAME}","src")
+			sonar.sonarScan1(sonarServer,"${JOB_NAME}","${JOB_NAME}","src", branchName)
                     
-
                     sleep 30
                     tools.printMsg("获取扫描结果","green")
                     result = sonarApi.GetProjectStatus("${JOB_NAME}")
