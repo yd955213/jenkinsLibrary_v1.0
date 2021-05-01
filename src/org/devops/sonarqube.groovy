@@ -2,15 +2,15 @@ package org.devops
 
 
 //scan
-def SonarScan(sonarServer,projectName,projectDesc,projectPath,branchName){
+def sonarScan1(sonarServer,projectName,projectDesc,projectPath,branchName){
     
     //定义服务器列表
-    def servers = ["test":"sonarqube-test","prod":"sonarqube-prod"]
+    //def servers = ["test":"sonarqube-test","prod":"sonarqube-prod"]
     
     
     //withSonarQubeEnv("${servers[sonarServer]}"){
         def scannerHome = "/opt/sonarqube/sonar-scanner-4.6.0.2311-linux"
-        sonarServer = "http://134.175.149.69:9000"
+        //sonarServer = "http://134.175.149.69:9000"
         def sonarDate = sh  returnStdout: true, script: 'date  +%Y%m%d%H%M%S'
         sonarDate = sonarDate - "\n"
 		print("扫描命令：${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${projectName} \
