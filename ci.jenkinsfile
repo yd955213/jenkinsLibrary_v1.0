@@ -74,9 +74,7 @@ pipeline{
                     sonarApi.ConfigQualityGates("${JOB_NAME}","javaSonar")
                 
                     tools.printMsg("代码扫描","green")
-			tools.printMsg("服务：${sonarServer}","green")
-			print(sonarServer)
-			sonar.sonarScan1(sonarServer,"${JOB_NAME}","${JOB_NAME}","src", branchName)
+			sonar.sonarScan1("mySonarServer","${JOB_NAME}","${JOB_NAME}","src", branchName)
                     
                     sleep 30
                     tools.printMsg("获取扫描结果","green")
